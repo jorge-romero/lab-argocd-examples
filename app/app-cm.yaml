@@ -11,7 +11,7 @@ data:
       <head>
           <meta http-equiv="content-type" content="text/html; charset=utf-8">
           <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
-          <title>ArgoCD Rocks</title>
+          <title>This is ArgoCD</title>
           <style type="text/css">
             body { text-align: center; margin: 80px 0px 0px 0px; font-family: 'Roboto', sans-serif; }
             h1 { font-size: 6em; }
@@ -19,8 +19,8 @@ data:
       </head>
       <body>
         <div>
-          <img height="400px" src="https://branding.cncf.io/img/projects/argo/icon/color/argo-icon-color.svg"></svg>
-          <h1>ArgoCD Rocks !</h1>
+          <img height="400px" src="https://images.app.goo.gl/m9ASRCmV5CxeYRQx9"/>
+          <h1>This is ArgoCD</h1>
         </div>
       </body>
     </html>
