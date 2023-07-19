@@ -7,7 +7,7 @@ spec:
     - web
   routes:
     - kind: Rule
-      match: Host(`argocdexample.plata`)
+      match: Host(`argocdexample.localhost`)
       priority: 10
       services:
         - name: website-service
