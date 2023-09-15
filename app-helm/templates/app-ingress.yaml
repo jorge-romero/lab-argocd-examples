@@ -12,5 +12,5 @@ spec:
       match: Host(`{{ .Values.url }}`)
       priority: 10
       services:
-        - name: website-service
+        - name: {{ .Values.metadata.name }}-website-service
           port: 80
