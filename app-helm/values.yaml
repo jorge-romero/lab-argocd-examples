@@ -1,0 +1,6 @@
+metadata:
+  labels:
+    app: argocdexample
+  name: argocdexample
+url: argocdexample.localhost
+

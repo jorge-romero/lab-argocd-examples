@@ -2,6 +2,5 @@
 A little example of argoCD GitOps.
 
 ## Structure
-- dev: Software deployed in *dev* enviroment/namespace
-- pro:o¡ Software deployed in *prod* enviroment/namespace
-
+* app: plain yaml of the resources
+* app-helm: Helm template
