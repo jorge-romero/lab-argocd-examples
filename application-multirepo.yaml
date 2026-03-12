@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-billing-app
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  sources:
+    - repoURL: https://github.com/jorge-romero/lab-argocd-examples.git
+      path: app
+      targetRevision: dev
+    - repoURL: "https://github.com/kubernetes-sigs/kustomize"
+      path: examples/helloWorld
+      targetRevision: HEAD
