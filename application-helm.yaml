@@ -1,17 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  labels:
-    app: argocdexample-helm
   name: argocdexample-app-helm
+  namespace: argocd
 spec:
   project: argocdexample-project
   source:
     repoURL: https://github.com/jorge-romero/lab-argocd-examples.git
     targetRevision: dev
     path: app-helm
-    directory:
-      recurse: true
+    helm:
+      releaseName: argocdexample-app-helm
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
