@@ -1,0 +1,32 @@
+# PostSync Hook - Smoke Test / Notification
+# Runs AFTER all resources are synced and healthy
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: smoke-test
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: smoke-test
+          image: curlimages/curl:8.5.0
+          command:
+            - /bin/sh
+            - -c
+            - |
+              echo "=== Running smoke tests ==="
+              echo "Testing frontend service..."
+              curl -sf http://frontend.sync-waves-demo.svc.cluster.local:80 || echo "Frontend not ready yet"
+              echo ""
+              echo "Testing backend service..."
+              curl -sf http://backend.sync-waves-demo.svc.cluster.local:8080 || echo "Backend not ready yet"
+              echo ""
+              echo "=== Smoke tests completed ==="
+              echo "Sending deployment notification..."
+              sleep 1
+              echo "Notification sent to Slack/Teams!"
+      restartPolicy: Never
+  backoffLimit: 2

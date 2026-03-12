@@ -1,0 +1,34 @@
+# SyncFail Hook - Alert on failure
+# Runs when sync operation fails
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sync-fail-alert
+  annotations:
+    argocd.argoproj.io/hook: SyncFail
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: alert
+          image: alpine:3.19
+          command:
+            - /bin/sh
+            - -c
+            - |
+              echo "=== SYNC FAILED ==="
+              echo "Application: sync-waves-demo"
+              echo "Timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+              echo ""
+              echo "Sending alert to PagerDuty/OpsGenie..."
+              sleep 1
+              echo "Alert sent!"
+              echo ""
+              echo "Consider checking:"
+              echo "  - Resource quotas"
+              echo "  - Image pull secrets"
+              echo "  - Network policies"
+              echo "  - RBAC permissions"
+      restartPolicy: Never
+  backoffLimit: 1

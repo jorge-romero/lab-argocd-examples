@@ -1,0 +1,27 @@
+# PreSync Hook - Database Migration Job
+# Runs BEFORE any resources are synced
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migration
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: migration
+          image: alpine:3.19
+          command:
+            - /bin/sh
+            - -c
+            - |
+              echo "=== Starting database migration ==="
+              echo "Checking database connection..."
+              sleep 2
+              echo "Running migrations..."
+              sleep 3
+              echo "Migration completed successfully!"
+      restartPolicy: Never
+  backoffLimit: 2

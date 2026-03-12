@@ -1,0 +1,23 @@
+# Wave 0: ConfigMaps and Secrets (deployed first)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+data:
+  DATABASE_HOST: "database"
+  DATABASE_PORT: "5432"
+  LOG_LEVEL: "info"
+  ENVIRONMENT: "production"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secrets
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+type: Opaque
+stringData:
+  DATABASE_PASSWORD: "supersecret"
+  API_KEY: "api-key-12345"
