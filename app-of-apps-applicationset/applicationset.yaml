@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cluster-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - list:
+        elements:
+          - name: frontend
+            namespace: frontend
+            path: app-of-apps-applicationset/workloads/frontend
+          - name: backend
+            namespace: backend
+            path: app-of-apps-applicationset/workloads/backend
+          - name: database
+            namespace: database
+            path: app-of-apps-applicationset/workloads/database
+  template:
+    metadata:
+      name: '{{.name}}-app'
+      namespace: argocd
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io/background
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/jorge-romero/lab-argocd-examples.git
+        targetRevision: HEAD
+        path: '{{.path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{.namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
