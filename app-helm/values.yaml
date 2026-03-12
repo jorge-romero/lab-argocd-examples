@@ -1,5 +1,5 @@
 metadata:
   labels:
-    app: argocdexample
-  name: argocdexample
-url: argocdexample.lab
+    app: argocdexample-helm
+  name: argocdexample-helm
+url: argocdexample-helm.lab
