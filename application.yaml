@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocdexample-app
+  namespace: argocd
+spec:
+  project: argocdexample-project
+  source:
+    repoURL: https://github.com/jorge-romero/lab-argocd-examples.git
+    targetRevision: dev
+    path: app
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev

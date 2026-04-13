@@ -1,13 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: my-billing-app
+  name: multirepo-app
   namespace: argocd
 spec:
-  project: default
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: default
+  project: argocdexample-project
   sources:
     - repoURL: https://github.com/jorge-romero/lab-argocd-examples.git
       path: app
@@ -15,3 +12,10 @@ spec:
     - repoURL: "https://github.com/kubernetes-sigs/kustomize"
       path: examples/helloWorld
       targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true      
